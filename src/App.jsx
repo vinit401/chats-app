@@ -1,13 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navlinks from "./components/Navlinks";
 import Chatbox from "./components/Chatbox";
 import Register from "./components/Register";
-import SearchModel from "./components/SearchModel";
 import Chatlist from "./components/Chatlist";
 import Login from "./components/Login";
 import { auth } from "./firebase/firebase";
-import { useState } from "react";
-import { useEffect } from "react";
 
 const App = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -15,11 +12,6 @@ const App = () => {
   const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
-    const currentUser = auth.currentUser;
-    if (currentUser) {
-      setUser(currentUser);
-    }
-
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
     });
@@ -27,23 +19,39 @@ const App = () => {
     return () => unsubscribe();
   }, []);
 
+  // Not logged in
+  if (!user) {
+    return (
+      <div>
+        {isLogin ? (
+          <Login isLogin={isLogin} setIsLogin={setIsLogin} />
+        ) : (
+          <Register isLogin={isLogin} setIsLogin={setIsLogin} />
+        )}
+      </div>
+    );
+  }
+
   return (
-    <div>
-      {user ? (
-        <div className="flex lg:flex-row flex-col items-start w-[100%]">
-          <Navlinks />
+    <div className="flex flex-col lg:flex-row h-screen w-full">
+      <Navlinks />
+
+      {/* MOBILE VIEW */}
+      <div className="flex w-full h-full lg:hidden">
+        {!selectedUser ? (
           <Chatlist setSelectedUser={setSelectedUser} />
-          <Chatbox selectedUser={selectedUser} />
-        </div>
-      ) : (
-        <div>
-          {isLogin ? (
-            <Login isLogin={isLogin} setIsLogin={setIsLogin} />
-          ) : (
-            <Register isLogin={isLogin} setIsLogin={setIsLogin} />
-          )}
-        </div>
-      )}
+        ) : (
+          <Chatbox selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+        )}
+      </div>
+
+      {/* DESKTOP VIEW */}
+      <div className="hidden lg:flex w-full h-full">
+        <Chatlist setSelectedUser={setSelectedUser} />
+        <Chatbox selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+
+        {/* <Chatbox selectedUser={selectedUser} /> */}
+      </div>
     </div>
   );
 };
