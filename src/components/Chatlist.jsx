@@ -58,7 +58,7 @@ const Chatlist = ({ setSelectedUser }) => {
   };
 
   return (
-    <section className="relative hidden lg:flex flex-col justify-start bg-white h-[100vh] w-full md:w-[600px]">
+    <section className="relative flex flex-col justify-start bg-white h-[100vh] w-full md:w-[600px]">
       {/* TOP HEADER */}
       <header className="flex items-center justify-between w-full border-b border-[#898989b9] p-4 sticky top-0 bg-white z-[100]">
         <div className="flex items-center gap-3">
