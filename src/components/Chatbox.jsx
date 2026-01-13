@@ -17,7 +17,7 @@ const Chatbox = ({ selectedUser, setSelectedUser }) => {
 
   const senderEmail = auth?.currentUser?.email;
 
-  // Realtime messages
+  // 🔥 Realtime messages
   useEffect(() => {
     if (!chatId) return;
     const unsubscribe = listenForMessages(chatId, setMessages);
@@ -48,7 +48,7 @@ const Chatbox = ({ selectedUser, setSelectedUser }) => {
     setMessageText("");
   };
 
-  // Welcome Screen
+  // Welcome screen
   if (!selectedUser) {
     return (
       <section className="h-full w-full bg-[#e5f6f3] flex flex-col justify-center items-center">
@@ -64,10 +64,10 @@ const Chatbox = ({ selectedUser, setSelectedUser }) => {
   }
 
   return (
-    <section className="flex flex-col h-full w-full background-image">
+    <section className="flex flex-col h-screen w-full background-image">
 
       {/* HEADER */}
-      <header className="w-full h-[70px] px-4 bg-white flex items-center gap-3 shadow-sm">
+      <header className="w-full h-[70px] px-4 bg-white flex items-center gap-3 shadow-sm shrink-0">
         <button
           className="lg:hidden text-teal-600 font-bold mr-2"
           onClick={() => setSelectedUser(null)}
@@ -91,13 +91,13 @@ const Chatbox = ({ selectedUser, setSelectedUser }) => {
         </div>
       </header>
 
-      {/* BODY */}
-      <div className="flex flex-col flex-1 relative">
+      {/* CHAT BODY */}
+      <div className="flex flex-col flex-1 overflow-hidden">
 
         {/* Messages */}
         <div
           ref={scrollRef}
-          className="flex-1 overflow-y-auto px-3 py-4 pb-24"
+          className="flex-1 overflow-y-auto px-3 py-4"
         >
           {sortedMessages.map((msg, index) => (
             <div key={index}>
@@ -129,11 +129,11 @@ const Chatbox = ({ selectedUser, setSelectedUser }) => {
           ))}
         </div>
 
-        {/* INPUT */}
-        <div className="sticky bottom-0 bg-white p-3">
+        {/* INPUT BAR */}
+        <div className="bg-white border-t p-3 shrink-0">
           <form
             onSubmit={handleSendMessage}
-            className="flex items-center h-[45px] w-full px-2 rounded-lg shadow-md border relative"
+            className="flex items-center h-[48px] w-full px-2 rounded-lg shadow-md border relative"
           >
             <input
               value={messageText}
