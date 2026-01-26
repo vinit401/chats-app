@@ -4,4 +4,4 @@ A modern realtime chat application built using React.js and Firebase.
 It includes user authentication, realtime messaging, chat listing, user search, and a responsive UI.  
 The app supports live message updates and secure user management.
 
-ONLIE Link :-https://chatskaro-app.netlify.app/
+Live Link :-https://chatskaro-app.netlify.app/
