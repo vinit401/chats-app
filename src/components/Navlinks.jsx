@@ -1,78 +1,78 @@
 import React from "react";
 import { signOut } from "firebase/auth";
-import {auth} from "../firebase/firebase"
+import { auth, setUserOffline } from "../firebase/firebase";
 import logo from "../../public/assets/logo.png";
 import {
-  RiArrowDownLine,
-  RiBardLine,
   RiChatAiLine,
   RiFile4Line,
   RiFolderUserLine,
+  RiBardLine,
   RiNotificationLine,
   RiShutDownLine,
 } from "react-icons/ri";
 
 const Navlinks = () => {
-
-  const handleLogout = async ()=>{
+  const handleLogout = async () => {
     try {
+      await setUserOffline(); // set status to offline before signing out
       await signOut(auth);
-      alert("Logout successful")
-      
+      alert("Logout successful");
     } catch (error) {
-      console.log(error)
-      
+      console.log(error);
     }
-  }
+  };
 
   return (
-    <section className="sticky lg:static top-0 flex items-center lg:items-start lg:justify-start h-[7vh] lg:h-[100vh] w-[100%] lg:w-[150px] py-8 lg:py-0 bg-[#01AA85]">
-      <main className="flex lg:flex-col items-center lg:gap-10 justify-between lg:px-0 w-[100%] ">
-        <div className="flex items-start justify-center lg:border-b border-b-1 border-[#ffffffb9] lg:w-[100%] p-4 ">
-          <span className="flex items-center justify-center">
-            <img
-              src={logo}
-              className="w-[56px] h-[52px] object-contain  bg-white  rounded-lg p-2"
-              alt=""
-            />
-          </span>
-        </div>
-        <ul className="flex lg:flex-col flex-row items-center gap-7 md:gap-10 px-2 md:px-0">
-          <li className="">
-            <button className="lg:text-[28px] text-[22px] cursor-pointer">
-              <RiChatAiLine color="#fff" />
-            </button>
-          </li>
-          <li className="">
-            <button className="lg:text-[28px] text-[22px] cursor-pointer">
-              <RiFolderUserLine color="#fff" />
-            </button>
-          </li>
-          <li className="">
-            <button className="lg:text-[28px] text-[22px] cursor-pointer">
-              <RiNotificationLine color="#fff" />
-            </button>
-          </li>
-          <li className="">
-            <button className="lg:text-[28px] text-[22px] cursor-pointer">
-              <RiFile4Line color="#fff" />
-            </button>
-          </li>
-          <li className="">
-            <button className="lg:text-[28px] text-[22px] cursor-pointer ">
-              <RiBardLine color="#fff" />
-            </button>
-          </li>
-          <li className="">
-            <button onClick={handleLogout} className="lg:text-[28px] text-[22px] cursor-pointer">
-              <RiShutDownLine color="#fff" />
-            </button>
-          </li>
-        </ul>
-        <button className="block lg:hidden lg:text-[28px] text-[22px] cursor-pointer ">
-              <RiArrowDownLine color="#fff" />
-            </button>
-      </main>
+    <section className="flex-shrink-0 flex lg:flex-col items-center lg:items-center lg:justify-start h-[60px] lg:h-full w-full lg:w-[70px] bg-[#01AA85] lg:py-4">
+
+      {/* Logo */}
+      <div className="flex items-center justify-center lg:border-b border-[#ffffffb9] lg:w-full p-3 lg:pb-4 lg:mb-4 flex-shrink-0">
+        <img
+          src={logo}
+          className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] object-contain bg-white rounded-lg p-1.5"
+          alt="logo"
+        />
+      </div>
+
+      {/* Nav links */}
+      <ul className="flex lg:flex-col flex-row items-center gap-5 lg:gap-8 px-3 lg:px-0 flex-1 lg:flex-none lg:mt-2">
+        <li>
+          <button className="text-[22px] lg:text-[26px] cursor-pointer opacity-80 hover:opacity-100 transition-opacity">
+            <RiChatAiLine color="#fff" />
+          </button>
+        </li>
+        <li>
+          <button className="text-[22px] lg:text-[26px] cursor-pointer opacity-80 hover:opacity-100 transition-opacity">
+            <RiFolderUserLine color="#fff" />
+          </button>
+        </li>
+        <li>
+          <button className="text-[22px] lg:text-[26px] cursor-pointer opacity-80 hover:opacity-100 transition-opacity">
+            <RiNotificationLine color="#fff" />
+          </button>
+        </li>
+        <li>
+          <button className="text-[22px] lg:text-[26px] cursor-pointer opacity-80 hover:opacity-100 transition-opacity">
+            <RiFile4Line color="#fff" />
+          </button>
+        </li>
+        <li>
+          <button className="text-[22px] lg:text-[26px] cursor-pointer opacity-80 hover:opacity-100 transition-opacity">
+            <RiBardLine color="#fff" />
+          </button>
+        </li>
+      </ul>
+
+      {/* Logout — pushed to end */}
+      <div className="flex items-center justify-center p-3 lg:mt-auto">
+        <button
+          onClick={handleLogout}
+          className="text-[22px] lg:text-[26px] cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
+          aria-label="Logout"
+        >
+          <RiShutDownLine color="#fff" />
+        </button>
+      </div>
     </section>
   );
 };
